@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            margin-top: 20px;
+            background: linear-gradient(45deg, #3b82f6, #9333ea, #f472b6, #f97316);
+            background-size: 300% 300%;
+            animation: gradientAnimation 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            filter: blur(50px);
+            animation: bubbleAnimation 20s linear infinite;
+        }
+
+        @keyframes bubbleAnimation {
+            0% { transform: scale(0) translateY(0); }
+            50% { transform: scale(1.2) translateY(-100vh); }
+            100% { transform: scale(0) translateY(0); }
+        }
+
+        .card {
+            max-width: 400px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 1;
+            position: relative;
+        }
+
+        .card h3 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-group label,
+        .form-label {
+            color: white;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control:focus {
+            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .btn-info:hover {
+            background-color: #117a8b;
+        }
+
+        .text-danger {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="bubble" style="width: 300px; height: 300px; background: rgba(255, 0, 150, 0.7); top: 50%; left: 20%; animation-duration: 15s;"></div>
+    <div class="bubble" style="width: 400px; height: 400px; background: rgba(0, 255, 255, 0.7); top: 20%; left: 60%; animation-duration: 25s;"></div>
+    <div class="bubble" style="width: 200px; height: 200px; background: rgba(255, 255, 0, 0.7); top: 70%; left: 80%; animation-duration: 20s;"></div>
+    <div class="bubble" style="width: 250px; height: 250px; background: rgba(0, 255, 0, 0.7); top: 40%; left: 10%; animation-duration: 30s;"></div>
+    <div class="card">
+        <h3 class="text-center">ĐĂNG KÝ</h3>
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Họ và tên:</label><span class="text-danger">*</span>
+                <input type="text" class="form-control" th:field="*{name}" id="name">
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" th:field="*{email}" id="email">
+                <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Tên đăng nhập:</label><span class="text-danger">*</span>
+                <input type="text" class="form-control" th:field="*{username}" id="username">
+                <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mật khẩu:</label><span class="text-danger">*</span>
+                <input type="password" class="form-control" th:field="*{password}" id="password">
+                <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-info btn-block">Đăng ký</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
